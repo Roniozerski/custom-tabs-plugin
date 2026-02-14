@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shortcode: [custom_tabs]
  * Renders tabs from ACF Options Page (tabs repeater) using clean HTML structure.
@@ -13,8 +14,9 @@
  */
 
 
-function ctp_render_tabs_shortcode($atts = []) {
-$plugin_url = plugin_dir_url( dirname(__FILE__) );
+function ctp_render_tabs_shortcode($atts = [])
+{
+    $plugin_url = plugin_dir_url(dirname(__FILE__));
     // Fetch tabs from ACF Options Page
     $tabs = get_field('tabs', 'option');
 
@@ -26,13 +28,13 @@ $plugin_url = plugin_dir_url( dirname(__FILE__) );
     $instance_id = 'ctp-tabs-' . wp_rand(1000, 999999);
 
     ob_start();
-    ?>
+?>
     <section class="ctp-tabs" id="<?php echo esc_attr($instance_id); ?>">
         <div class="ctp-tabs__inner">
 
             <!-- Tabs Navigation -->
             <div class="ctp-tabs__nav" role="tablist" aria-label="Tabs Navigation">
-                <?php foreach ($tabs as $i => $tab): 
+                <?php foreach ($tabs as $i => $tab):
                     $title = $tab['tab_title'] ?? '';
                     if (!$title) continue;
 
@@ -47,8 +49,7 @@ $plugin_url = plugin_dir_url( dirname(__FILE__) );
                         aria-selected="<?php echo $is_active ? 'true' : 'false'; ?>"
                         aria-controls="<?php echo esc_attr($panel_id); ?>"
                         id="<?php echo esc_attr($tab_id); ?>"
-                        data-ctp-tab="<?php echo esc_attr($i); ?>"
-                    >
+                        data-ctp-tab="<?php echo esc_attr($i); ?>">
                         <?php echo esc_html($title); ?>
                     </button>
                 <?php endforeach; ?>
@@ -92,35 +93,33 @@ $plugin_url = plugin_dir_url( dirname(__FILE__) );
                         role="tabpanel"
                         aria-labelledby="<?php echo esc_attr($tab_id); ?>"
                         id="<?php echo esc_attr($panel_id); ?>"
-                        data-ctp-panel="<?php echo esc_attr($i); ?>"
-                    >
+                        data-ctp-panel="<?php echo esc_attr($i); ?>">
                         <div class="ctp-tabs__panel-inner">
 
                             <!-- Quote Box -->
                             <?php if ($quote || $avatar || $name || $job || $quote_logo): ?>
                                 <div class="ctp-quote">
-      <?php if ($quote_background_mobile || $quote_background): ?>
-    <div class="ctp-quote__logo">
-        <picture>
-            <?php if ($quote_background): ?>
-                <source 
-                    srcset="<?php echo esc_url($quote_background); ?>" 
-                    media="(min-width: 480px)"    >
-            <?php endif; ?>
-            <img 
-                src="<?php echo esc_url($quote_background_mobile ?: $quote_background); ?>" 
-                alt="quote background" 
-            >
-     
-        </picture>
-    </div>
+                                    <?php if ($quote_background_mobile || $quote_background): ?>
+                                        <div class="ctp-quote__bg">
+                                            <picture>
+                                                <?php if ($quote_background): ?>
+                                                    <source
+                                                        srcset="<?php echo esc_url($quote_background); ?>"
+                                                        media="(min-width: 481px)">
+                                                <?php endif; ?>
+                                                <img
+                                                    src="<?php echo esc_url($quote_background_mobile ?: $quote_background); ?>"
+                                                    alt="quote background">
 
-<?php endif; ?>
-                                   
-                                   
+                                            </picture>
+                                        </div>
+
+                                    <?php endif; ?>
+
+
                                     <div class="ctp-quote__content">
                                         <?php if ($quote): ?>
-                                            <img src="<?php echo esc_url($plugin_url . 'assets/images/quote.png')?>" alt="quote"/>
+                                            <img src="<?php echo esc_url($plugin_url . 'assets/images/quote.png') ?>" alt="quote" />
                                             <p class="ctp-quote__text"><?php echo $quote; ?></p>
                                         <?php endif; ?>
                                     </div>
@@ -149,57 +148,56 @@ $plugin_url = plugin_dir_url( dirname(__FILE__) );
                                     </div>
                                 </div>
                             <?php endif; ?>
+                            <div class="ctp-two_boxes">
+                                <!-- Percentage Box -->
+                                <?php if ($percentage_number !== '' || $percentage_content): ?>
+                                    <div class="ctp-percentage">
+                                        <?php if ($percentage_number !== ''): ?>
+                                            <p class="ctp-percentage__number">
+                                                <?php echo esc_html($percentage_number); ?>%
+                                            </p>
+                                        <?php endif; ?>
 
-                            <!-- Percentage Box -->
-                            <?php if ($percentage_number !== '' || $percentage_content): ?>
-                                <div class="ctp-percentage">
-                                    <?php if ($percentage_number !== ''): ?>
-                                        <p class="ctp-percentage__number">
-                                            <?php echo esc_html($percentage_number); ?>%
-                                        </p>
-                                    <?php endif; ?>
+                                        <?php if ($percentage_content): ?>
+                                            <p class="ctp-percentage__content">
+                                                <?php echo esc_html($percentage_content); ?>
+                                            </p>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
 
-                                    <?php if ($percentage_content): ?>
-                                        <p class="ctp-percentage__content">
-                                            <?php echo esc_html($percentage_content); ?>
-                                        </p>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endif; ?>
-
-                            <!-- Link Box -->
-                            <?php if (is_array($link) && !empty($link['url'])): ?>
-                                <?php
+                                <!-- Link Box -->
+                                <?php if (is_array($link) && !empty($link['url'])): ?>
+                                    <?php
                                     $link_url    = $link['url'];
                                     $link_title  = $link['title'] ?: '';
                                     $link_target = !empty($link['target']) ? $link['target'] : '_self';
-                                ?>
-                                <div class="ctp-linkbox">
-                                               <?php if ( $link_title): ?>
-                                            <img src="<?php echo esc_url($plugin_url . 'assets/images/right_arrow.png')?>" alt="arrow"/>
+                                    ?>
+                                    <a class="ctp-linkbox" href="<?php echo esc_url($link_url); ?>"
+                                        target="<?php echo esc_attr($link_target); ?>"
+                                        rel="<?php echo $link_target === '_blank' ? 'noopener noreferrer' : 'nofollow'; ?>">
+
+                                        <div class="ctp-linkbox__link">
+
+                                            <?php echo esc_html($link_title); ?>
+                                        </div>
+                                        <?php if ($link_title): ?>
+                                            <img src="<?php echo esc_url($plugin_url . 'assets/images/right_arrow.svg') ?>" alt="arrow" />
 
                                         <?php endif; ?>
-                                    <a
-                                        class="ctp-linkbox__link"
-                                        href="<?php echo esc_url($link_url); ?>"
-                                        target="<?php echo esc_attr($link_target); ?>"
-                                        rel="<?php echo $link_target === '_blank' ? 'noopener noreferrer' : 'nofollow'; ?>"
-                                    >
-                                        <?php echo esc_html($link_title); ?>
                                     </a>
-                                </div>
-                            <?php endif; ?>
-
+                                <?php endif; ?>
+                            </div>
                             <!-- Trusted By Logos -->
                             <?php if (!empty($trusted_by) && is_array($trusted_by)): ?>
                                 <div class="ctp-trusted">
-                                             <div class="ctp-trusted__title">
+                                    <div class="ctp-trusted__title">
 
-<h4>TRUSTED BY</h4>
-                            </div>
+                                        <h4>TRUSTED BY</h4>
+                                    </div>
                                     <div class="ctp-trusted__logos">
-                                        
-                                        <?php foreach ($trusted_by as $row): 
+
+                                        <?php foreach ($trusted_by as $row):
                                             $logo_url = $row['logo'] ?? '';
                                             if (!$logo_url) continue;
                                         ?>
@@ -212,13 +210,13 @@ $plugin_url = plugin_dir_url( dirname(__FILE__) );
                             <?php endif; ?>
 
                         </div>
-                       </div>
+                    </div>
                 <?php endforeach; ?>
             </div>
 
         </div>
     </section>
-    <?php
+<?php
 
     return ob_get_clean();
 }
