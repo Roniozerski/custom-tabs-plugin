@@ -110,10 +110,8 @@ function ctp_render_tabs_shortcode($atts = [])
                                                 <img
                                                     src="<?php echo esc_url($quote_background_mobile ?: $quote_background); ?>"
                                                     alt="quote background">
-
                                             </picture>
                                         </div>
-
                                     <?php endif; ?>
 
 

@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!instances.length) return;
 
   instances.forEach((root) => {
-    const buttons = root.querySelectorAll('[data-ctp-tab]');
+    const buttons = root.querySelectorAll('[data-ctp-tab]')
     const panels = root.querySelectorAll('[data-ctp-panel]');
 
     if (!buttons.length || !panels.length) return;
 
     // Transition settings (keep in sync with CSS if you add it)
-    const FADE_MS = 220;
+    const FADE_MS = 120;
 
     const setActive = (nextIndex) => {
       const nextBtn = root.querySelector(`[data-ctp-tab="${nextIndex}"]`);
