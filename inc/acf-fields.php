@@ -25,6 +25,10 @@ $quote_background_key    = 'field_quote_background';
 $quote_background_name   = 'background';
 $quote_background_label  = 'Background';
 
+$quote_background_mobile_key    = 'field_quote_background_mobile';
+$quote_background_mobile_name   = 'background_mobile';
+$quote_background_mobile_label  = 'Mobile background';
+
 $quote_text_key    = 'field_quote_text';
 $quote_text_name   = 'quote';
 $quote_text_label  = 'Quote';
@@ -79,10 +83,10 @@ $trusted_logo_label= 'Logo Image';
 add_action('acf/init', function () use (
     $tabs_group_key, $tabs_group_title, $tabs_field_key, $tabs_field_name, $tabs_field_label,
     $tab_title_key, $tab_title_name, $tab_title_label,
-    $tab_content_key, $tab_content_name, $tab_content_label,
     $quote_box_key, $quote_box_name, $quote_box_label,
     $quote_text_key, $quote_text_name, $quote_text_label,
     $quote_background_key, $quote_background_name, $quote_background_label,
+    $quote_background_mobile_key, $quote_background_mobile_name, $quote_background_mobile_label,
     $quote_avatar_key, $quote_avatar_name, $quote_avatar_label,
     $quote_name_key, $quote_name_name, $quote_name_label,
     $quote_job_key, $quote_job_name, $quote_job_label,
@@ -124,10 +128,18 @@ add_action('acf/init', function () use (
                         'name' => $quote_box_name,
                         'type' => 'group',
                         'sub_fields' => [
+                        
                                  [
                                 'key' => $quote_background_key,
                                 'label' => $quote_background_label,
                                 'name' => $quote_background_name,
+                                'type' => 'image',
+                                'return_format' => 'url',
+                            ],
+                                         [
+                                'key' => $quote_background_mobile_key,
+                                'label' => $quote_background_mobile_label,
+                                'name' => $quote_background_mobile_name,
                                 'type' => 'image',
                                 'return_format' => 'url',
                             ],
