@@ -20,6 +20,11 @@ $quote_box_key     = 'field_quote_box';
 $quote_box_name    = 'quote_box';
 $quote_box_label   = 'Quote Box';
 
+
+$quote_background_key    = 'field_quote_background';
+$quote_background_name   = 'background';
+$quote_background_label  = 'Background';
+
 $quote_text_key    = 'field_quote_text';
 $quote_text_name   = 'quote';
 $quote_text_label  = 'Quote';
@@ -77,6 +82,7 @@ add_action('acf/init', function () use (
     $tab_content_key, $tab_content_name, $tab_content_label,
     $quote_box_key, $quote_box_name, $quote_box_label,
     $quote_text_key, $quote_text_name, $quote_text_label,
+    $quote_background_key, $quote_background_name, $quote_background_label,
     $quote_avatar_key, $quote_avatar_name, $quote_avatar_label,
     $quote_name_key, $quote_name_name, $quote_name_label,
     $quote_job_key, $quote_job_name, $quote_job_label,
@@ -118,6 +124,13 @@ add_action('acf/init', function () use (
                         'name' => $quote_box_name,
                         'type' => 'group',
                         'sub_fields' => [
+                                 [
+                                'key' => $quote_background_key,
+                                'label' => $quote_background_label,
+                                'name' => $quote_background_name,
+                                'type' => 'image',
+                                'return_format' => 'url',
+                            ],
                             [
                                 'key' => $quote_text_key,
                                 'label' => $quote_text_label,
