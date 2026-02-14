@@ -5,7 +5,10 @@
  * Version: 1.0.0
  * Author: Roni Ozerski
  */
+define('CTP_PATH', plugin_dir_path(__FILE__));
+define('CTP_URL', plugin_dir_url(__FILE__));
 
-if (!defined('ABSPATH')) {
-    exit;
-}
+require_once CTP_PATH . 'inc/options-page.php';
+require_once CTP_PATH . 'inc/acf-fields.php';
+require_once CTP_PATH . 'inc/shortcode.php';
+require_once CTP_PATH . 'inc/enqueue.php';
