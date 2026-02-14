@@ -7,6 +7,7 @@
  */
 define('CTP_PATH', plugin_dir_path(__FILE__));
 define('CTP_URL', plugin_dir_url(__FILE__));
+define( 'CTP_VERSION', '1.0.0' );
 
 require_once CTP_PATH . 'inc/options-page.php';
 require_once CTP_PATH . 'inc/acf-fields.php';
